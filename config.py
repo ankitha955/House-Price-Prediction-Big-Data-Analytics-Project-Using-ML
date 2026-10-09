@@ -5,20 +5,31 @@ All paths, hyperparameters, and settings are centralized here.
 
 import os
 
-# ─── Paths ────────────────────────────────────────────────────────────────────
-BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH  = r"C:\Users\Lenovo\Downloads\archive\indian_house_prices_dataset.csv"
+# ─── Paths ────────────────────────────────────────────────────────────────
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Prefer an environment-provided dataset path, then common project locations.
+DATA_CANDIDATES = [
+    os.environ.get("DATA_PATH"),
+    os.path.join(BASE_DIR, "data", "indian_house_prices_dataset.csv"),
+    os.path.join(BASE_DIR, "indian_house_prices_dataset.csv"),
+]
+DATA_PATH = next(
+    (p for p in DATA_CANDIDATES if p and os.path.exists(p)),
+    os.path.join(BASE_DIR, "indian_house_prices_dataset.csv"),
+)
+
 OUTPUT_DIR = os.path.join(BASE_DIR, "outputs")
-MODEL_DIR  = os.path.join(BASE_DIR, "models")
+MODEL_DIR = os.path.join(BASE_DIR, "models")
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-os.makedirs(MODEL_DIR,  exist_ok=True)
+os.makedirs(MODEL_DIR, exist_ok=True)
 
 # ─── Target & ID columns ──────────────────────────────────────────────────────
 TARGET_COL = "Price_INR_Lakhs"
-ID_COL     = "Property_ID"
+ID_COL = "Property_ID"
 
-# ─── Feature groups ───────────────────────────────────────────────────────────
+# ─── Feature groups ────────────────────────────────────────────────────────
 NUMERIC_FEATURES = [
     "BHK", "Bathrooms", "Super_Area_SqFt", "Carpet_Area_SqFt",
     "Floor_Number", "Total_Floors", "Age_of_Property",
@@ -31,30 +42,30 @@ CATEGORICAL_FEATURES = [
 ]
 
 # ─── Train / Test split ───────────────────────────────────────────────────────
-TEST_SIZE    = 0.20
+TEST_SIZE = 0.20
 RANDOM_STATE = 42
 
 # ─── Model hyperparameters ────────────────────────────────────────────────────
 XGBOOST_PARAMS = {
-    "n_estimators"     : 500,
-    "learning_rate"    : 0.05,
-    "max_depth"        : 6,
-    "subsample"        : 0.8,
-    "colsample_bytree" : 0.8,
-    "random_state"     : RANDOM_STATE,
-    "n_jobs"           : -1,
+    "n_estimators": 500,
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "random_state": RANDOM_STATE,
+    "n_jobs": -1,
 }
 
 RF_PARAMS = {
-    "n_estimators" : 300,
-    "max_depth"    : None,
-    "random_state" : RANDOM_STATE,
-    "n_jobs"       : -1,
+    "n_estimators": 300,
+    "max_depth": None,
+    "random_state": RANDOM_STATE,
+    "n_jobs": -1,
 }
 
 GBR_PARAMS = {
-    "n_estimators" : 300,
+    "n_estimators": 300,
     "learning_rate": 0.05,
-    "max_depth"    : 5,
-    "random_state" : RANDOM_STATE,
+    "max_depth": 5,
+    "random_state": RANDOM_STATE,
 }
