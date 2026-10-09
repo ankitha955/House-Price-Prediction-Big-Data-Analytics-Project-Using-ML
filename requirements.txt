@@ -4,3 +4,5 @@ matplotlib>=3.5
 seaborn>=0.12
 xgboost>=1.7
 numpy>=1.23
+streamlit>=1.30
+Pillow>=9.0

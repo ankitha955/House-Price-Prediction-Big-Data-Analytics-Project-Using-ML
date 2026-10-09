@@ -25,7 +25,7 @@ st.set_page_config(
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 BASE_DIR    = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH   = r"C:\Users\Lenovo\Downloads\archive\indian_house_prices_dataset.csv"
+DATA_PATH   = os.path.join(BASE_DIR, "indian_house_prices_dataset.csv")
 MODEL_PATH  = os.path.join(BASE_DIR, "models", "best_model.pkl")
 SCALER_PATH = os.path.join(BASE_DIR, "models", "scaler.pkl")
 FEAT_PATH   = os.path.join(BASE_DIR, "models", "features.pkl")
